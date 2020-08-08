@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Atualizando repositorio e instalando alguns pacotes"
 apt update -qq && apt list -qq --upgradable && apt -qq install -y reprepro dpkg-dev apache2 rng-tools
 
 echo "você ja alterou o conf/distribuitions de enter se sim se não CTRL + C"
@@ -31,10 +32,13 @@ cp -r conf /var/www/html/conf
 CODE="$(cat conf/distributions | grep 'Codename:' | sed 's|Codename: ||g' | sed 's|Codename:||g')"
 
 cp -rf publish-package.sh /tmp/.pub.sh
-sed 's|KEYbt|$KEY|g' /tmp/.pub.sh
-sed 's|DODEbt|$CODE|g' /tmp/.pub.sh
-cp /tmp/.pub.sh /var/www/html
+sed 's|KEYbt|$KEY|g' -i /tmp/.pub.sh
+sed 's|DODEbt|$CODE|g' -i /tmp/.pub.sh
+cp -rf /tmp/.pub.sh /var/www/html
 
 cp init.d-script.sh -f /etc/init.d/apt-local
+chmod a+x /etc/init.d/apt-local
+update-rc.d apt-local defaults
+update-rc.d apt-local enable
 
 echo "Pronto"
