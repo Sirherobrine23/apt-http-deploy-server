@@ -10,11 +10,17 @@ gpg --list-keys
 echo "por favor copie a chave publica gerada e cole aqui no Terminal"
 read KEY
 echo "A key informada foi: $KEY"
-sleep 5
 echo "de enter se estiver certa, se não CRTL + C"
 read NULL
 
 echo "default-key $KEY" >> $HOME/.gnupg/gpg.conf
+echo "verificando sua key "
+gpg --list-keys $KEY > /dev/null
+
+if [ $? -eq 2 ];then
+echo "key errada ou não existe"
+exit 127
+fi
 
 #echo '#- bySh23' >> /etc/sudoers
 #echo "$(whoami) ALL=(ALL) NOPASSWORD: ALL" >> /etc/sudoers
@@ -34,7 +40,8 @@ CODE="$(cat conf/distributions | grep 'Codename:' | sed 's|Codename: ||g' | sed 
 cp -rf publish-package.sh /tmp/.pub.sh
 sed 's|KEYbt|$KEY|g' -i /tmp/.pub.sh
 sed 's|DODEbt|$CODE|g' -i /tmp/.pub.sh
-cp -rf /tmp/.pub.sh /var/www/html
+mv -f /tmp/.pub.sh /var/www/html
+chmod a+x /var/www/html/.pub.sh
 
 cp init.d-script.sh -f /etc/init.d/apt-local
 chmod a+x /etc/init.d/apt-local
