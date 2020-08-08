@@ -1,0 +1,4 @@
+Codename: sh23
+Architectures: amd64 i386 i686
+Components: contrib main
+SignWith: yes
