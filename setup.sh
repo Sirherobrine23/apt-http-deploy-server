@@ -22,15 +22,10 @@ echo "key errada ou não existe"
 exit 127
 fi
 
-#echo '#- bySh23' >> /etc/sudoers
-#echo "$(whoami) ALL=(ALL) NOPASSWORD: ALL" >> /etc/sudoers
-#echo '#- bySh23 -' >> /etc/sudoers
-
 mkdir -p /var/www/html
 mkdir -p /var/www/package
 mkdir -p /var/www/package/main
 wget https://github.com/Silvenga/examples/raw/master/example-helloworld_1.0.0.0_amd64.deb -q -O /var/www/package/main/example-helloworld_1.0.0.0_amd64.deb
-wget https://github.com/Silvenga/examples/raw/master/example-helloworld_1.0.0.0_i386.deb -q  -O  /var/www/package/main/example-helloworld_1.0.0.0_i386.deb
 mkdir -p /var/www/package/contrib
 cp -r conf /var/www/html/conf
 
