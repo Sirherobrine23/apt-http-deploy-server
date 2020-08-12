@@ -11,7 +11,7 @@
 
 . /lib/lsb/init-functions
 
-DAEMON=/var/www/html/.pub.sh 
+DAEMON=/var/www/Publica.sh
 
 test -x $DAEMON || exit 127
 
@@ -19,7 +19,7 @@ if [[ "$EUID" -ne 0 ]]; then
     echo "Você não está executando o service com root ou sudo";exit 1
 fi
 start_sh(){
-    screen bash /var/www/html/.pub.sh
+    screen bash /var/www/Publica.sh
 }
 stop_sh(){
     screen -Rd you.apt -X stuff
